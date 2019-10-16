@@ -5,34 +5,60 @@
  */
 package gui;
 
-import model.Item;
-import model.Vendedor;
-
 /**
  *
- * @author tadeu
+ * @author Tadeu
  */
+import Controls.ExceptionReservatorio;
+import model.Item;
+import model.Vendedor;
+import static server.Server.posto;
+
+import java.awt.event.KeyEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 public class Comanda extends javax.swing.JFrame {
- Item gasComum = new Item();
-    Item gasAditivada = new Item();
-    Item oleoDisel = new Item();
-    Item alcool = new Item();
-    Item oleoMotor1 = new Item();
-    Item oleoMotor500 = new Item();
-    Vendedor posto = new Vendedor();
-    posto.setCombustivel(oleoDisel);
-    posto.setCombustivel(gasComum);
-    posto.setCombustivel(gasAditivada);
-    posto.setCombustivel(alcool);
-    posto.setOleoMotor(oleoMotor500);
-    posto.setOleoMotor(oleoMotor1);
+    private static double valorCombustivel;
+    private static int quantidadeCombustivel;
+    private static int quantidadeDias;
+    private static int combustivel;
+    private static double valor500;
+    private static double valor1;
+    private static double valorOleo;
+    private static double valorTotal;
     /**
      * Creates new form Comanda
      */
-    public Comanda() {
+    public Comanda(Vendedor posto) {
         initComponents();
+        
     }
-
+    private void reiniciar(){
+        inputPrecoOleoDiesel.setText(Double.toString(posto.getCombustivel(0).getValor()));
+        inputPrecoGasComum.setText(Double.toString(posto.getCombustivel(1).getValor()));
+        inputPrecoGasAditivada.setText(Double.toString(posto.getCombustivel(2).getValor()));
+        inputPrecoAlcool.setText(Double.toString(posto.getCombustivel(3).getValor()));
+        inputPrecoFrasco500.setText(Double.toString(posto.getOleoMotor(0).getValor()));
+        inputPrecoFrasco1.setText(Double.toString(posto.getOleoMotor(1).getValor()));
+        inputQuantidadeAbastecimento.setText("0");
+        inputValorTotalAbastecimento.setText("0.00");
+        inputQuantidadeFrasco500.setText("0");
+        inputQuantidadeFrasco1.setText("0");
+        inputValorPagarFraco500.setText("0.00");
+        inputValorPagarFraco1.setText("0.00");
+        inputValorTotalOleo.setText("0.00");
+        inputDias.setText("0");
+        inputTotalApagar.setText("0");
+        checkBoxFrasco500.setSelected(false);
+        checkBoxFrasco1.setSelected(false);
+        inputPrecoFrasco500.setEditable(false);
+        inputPrecoFrasco1.setEditable(false);
+        inputDias.setEditable(false);
+        radioDiesel.setSelected(true);
+        radioAvista.setSelected(true);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -42,549 +68,881 @@ public class Comanda extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.ButtonGroup GrupoRadioAbastecimento = new javax.swing.ButtonGroup();
-        javax.swing.ButtonGroup GrupoRadioPagamento = new javax.swing.ButtonGroup();
-        javax.swing.JPanel PainelPrecoOleo = new javax.swing.JPanel();
-        javax.swing.JLabel LabelOleo1 = new javax.swing.JLabel();
-        javax.swing.JLabel LabelOleo500 = new javax.swing.JLabel();
-        javax.swing.JTextField InputPrecoOleo500 = new javax.swing.JTextField();
-        javax.swing.JTextField InputPrecoOleo1 = new javax.swing.JTextField();
-        javax.swing.JPanel PainelPrecoCombustive = new javax.swing.JPanel();
-        javax.swing.JLabel LabelOleoDisel = new javax.swing.JLabel();
-        javax.swing.JLabel LabelGasComum = new javax.swing.JLabel();
-        javax.swing.JLabel LabelGasAditivada = new javax.swing.JLabel();
-        javax.swing.JLabel LabelAlcool = new javax.swing.JLabel();
-        javax.swing.JTextField InputPrecoOleoDisel = new javax.swing.JTextField();
-        javax.swing.JTextField InputPrecoGasComum = new javax.swing.JTextField();
-        javax.swing.JTextField InputPrecoGasAditivada = new javax.swing.JTextField();
-        javax.swing.JTextField InputPrecoAlcool = new javax.swing.JTextField();
-        javax.swing.JPanel PainelPagamento = new javax.swing.JPanel();
-        javax.swing.JButton BotaoObservacao = new javax.swing.JButton();
-        javax.swing.JRadioButton RadioAvista = new javax.swing.JRadioButton();
-        javax.swing.JRadioButton RadioPrazo = new javax.swing.JRadioButton();
-        javax.swing.JLabel LabelTotalVenda = new javax.swing.JLabel();
-        javax.swing.JTextField InputTotalVenda = new javax.swing.JTextField();
-        javax.swing.JLabel LabelDiasPrazo = new javax.swing.JLabel();
-        javax.swing.JTextField InputDiasPrazo = new javax.swing.JTextField();
-        javax.swing.JPanel PainelAbastecimento = new javax.swing.JPanel();
-        javax.swing.JRadioButton RadioOleoDisel = new javax.swing.JRadioButton();
-        javax.swing.JRadioButton RadioGasComum = new javax.swing.JRadioButton();
-        javax.swing.JRadioButton RadioAlcool = new javax.swing.JRadioButton();
-        javax.swing.JRadioButton RadioGasAditivada = new javax.swing.JRadioButton();
-        javax.swing.JLabel LabelTotalCombustivelVenda = new javax.swing.JLabel();
-        javax.swing.JLabel LabelQuantidadeCombustivelVenda = new javax.swing.JLabel();
-        javax.swing.JTextField InputQuantidadeVendaCombustivel = new javax.swing.JTextField();
-        javax.swing.JTextField InputValorTotalVendaCombustivel = new javax.swing.JTextField();
-        javax.swing.JPanel PainelCompraOleo = new javax.swing.JPanel();
-        javax.swing.JTextField InputQuantidadeOleo1Venda = new javax.swing.JTextField();
-        javax.swing.JTextField InputQuantidadeOleo500Venda = new javax.swing.JTextField();
-        javax.swing.JTextField InputPrecoOleo500Venda = new javax.swing.JTextField();
-        javax.swing.JTextField InputPrecoOleo1Venda = new javax.swing.JTextField();
-        javax.swing.JLabel LabelTotalPrecoVendaOleo = new javax.swing.JLabel();
-        javax.swing.JTextField InputTotalPrecoOleo = new javax.swing.JTextField();
-        javax.swing.JCheckBox CheckBoxOleo500Venda = new javax.swing.JCheckBox();
-        javax.swing.JCheckBox CheckBoxOleo1Venda = new javax.swing.JCheckBox();
-        javax.swing.JLabel LabelQuantidadeOleosVenda = new javax.swing.JLabel();
-        javax.swing.JLabel LabelEspeciePrecoVendaOleo = new javax.swing.JLabel();
-        javax.swing.JPanel PainelBotoes = new javax.swing.JPanel();
-        javax.swing.JButton BotaoCalcular = new javax.swing.JButton();
-        javax.swing.JButton BotaoNovo = new javax.swing.JButton();
-        javax.swing.JButton BotaoFexar = new javax.swing.JButton();
+        abastecimentoGrupo = new javax.swing.ButtonGroup();
+        formaGrupo = new javax.swing.ButtonGroup();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        labelPrecoOleoDiesel = new javax.swing.JLabel();
+        inputPrecoOleoDiesel = new javax.swing.JTextField();
+        labelPrecoGasComum = new javax.swing.JLabel();
+        inputPrecoGasComum = new javax.swing.JTextField();
+        labelPrecoGasAditivada = new javax.swing.JLabel();
+        inputPrecoGasAditivada = new javax.swing.JTextField();
+        labelPrecoAlcool = new javax.swing.JLabel();
+        inputPrecoAlcool = new javax.swing.JTextField();
+        jPanel4 = new javax.swing.JPanel();
+        labelPrecoFrasco500 = new javax.swing.JLabel();
+        inputPrecoFrasco500 = new javax.swing.JTextField();
+        labelPrecoFraco1 = new javax.swing.JLabel();
+        inputPrecoFrasco1 = new javax.swing.JTextField();
+        jPanel3 = new javax.swing.JPanel();
+        radioDiesel = new javax.swing.JRadioButton();
+        radioComum = new javax.swing.JRadioButton();
+        radioAditivada = new javax.swing.JRadioButton();
+        radioAlcool = new javax.swing.JRadioButton();
+        labelQuantidadeAbastecimento = new javax.swing.JLabel();
+        inputQuantidadeAbastecimento = new javax.swing.JTextField();
+        inputValorTotalAbastecimento = new javax.swing.JTextField();
+        labelPrecoValorTotalAbastecimento = new javax.swing.JLabel();
+        buttonAcionar = new javax.swing.JToggleButton();
+        jPanel5 = new javax.swing.JPanel();
+        checkBoxFrasco500 = new javax.swing.JCheckBox();
+        checkBoxFrasco1 = new javax.swing.JCheckBox();
+        inputQuantidadeFrasco1 = new javax.swing.JTextField();
+        inputQuantidadeFrasco500 = new javax.swing.JTextField();
+        labelQuantidadeOleo = new javax.swing.JLabel();
+        labelValorPagarOleo = new javax.swing.JLabel();
+        inputValorPagarFraco500 = new javax.swing.JTextField();
+        inputValorPagarFraco1 = new javax.swing.JTextField();
+        inputValorTotalOleo = new javax.swing.JTextField();
+        labelValorTotalOleo = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        radioAvista = new javax.swing.JRadioButton();
+        radioPrazo = new javax.swing.JRadioButton();
+        labelTotalApagar = new javax.swing.JLabel();
+        inputTotalApagar = new javax.swing.JTextField();
+        labelDias = new javax.swing.JLabel();
+        inputDias = new javax.swing.JTextField();
+        buttonObservacao = new javax.swing.JButton();
+        buttonCalcular = new javax.swing.JButton();
+        buttonNovo = new javax.swing.JButton();
+        buttonFechar = new javax.swing.JButton();
+        labelEtanolTanque = new javax.swing.JLabel();
+        progressBarDiesel = new javax.swing.JProgressBar();
+        buttonIniciarDiesel = new javax.swing.JButton();
+        buttonCompletarDiesel = new javax.swing.JButton();
+        labelGasComumTanque = new javax.swing.JLabel();
+        ProgressBarGasComum = new javax.swing.JProgressBar();
+        buttonIniciarGasComum = new javax.swing.JButton();
+        buttonCompletarGasComum = new javax.swing.JButton();
+        labelGasAditivadaTanque = new javax.swing.JLabel();
+        progressBarGasAditivada = new javax.swing.JProgressBar();
+        jButtonIniciarGasAditivada = new javax.swing.JButton();
+        buttonCompletarGasAditivada = new javax.swing.JButton();
+        labelAlcoolTanque = new javax.swing.JLabel();
+        progressBarAlcool = new javax.swing.JProgressBar();
+        buttonIniciarAlcool = new javax.swing.JButton();
+        buttonCompletarAlcool = new javax.swing.JButton();
+        jPanel7 = new javax.swing.JPanel();
+        progressBarFrasco1 = new javax.swing.JProgressBar();
+        progressBarFrasco500 = new javax.swing.JProgressBar();
+        labelEtanolTanque1 = new javax.swing.JLabel();
+        labelEtanolTanque2 = new javax.swing.JLabel();
+        buttonCompletarFrasco500 = new javax.swing.JButton();
+        buttonIniciarFrasco500 = new javax.swing.JButton();
+        buttonCompletarFrasco1 = new javax.swing.JButton();
+        buttonIniciarFrasco1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("gui/Bundle"); // NOI18N
-        PainelPrecoOleo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, bundle.getString("Comanda.PainelPrecoOleo.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Fira Code", 1, 12))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Painel de Preço do Combustivel"));
 
-        LabelOleo1.setFont(new java.awt.Font("Fira Code", 1, 12)); // NOI18N
-        LabelOleo1.setText(bundle.getString("Comanda.LabelOleo1.text")); // NOI18N
+        labelPrecoOleoDiesel.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        labelPrecoOleoDiesel.setText("Óleo Diesel:");
 
-        LabelOleo500.setFont(new java.awt.Font("Fira Code", 1, 12)); // NOI18N
-        LabelOleo500.setText(bundle.getString("Comanda.LabelOleo500.text")); // NOI18N
-
-        InputPrecoOleo500.setText(bundle.getString("Comanda.InputPrecoOleo500.text")); // NOI18N
-        InputPrecoOleo500.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                InputPrecoOleo500KeyTyped(evt);
-            }
-        });
-
-        InputPrecoOleo1.setText(bundle.getString("Comanda.InputPrecoOleo1.text")); // NOI18N
-        InputPrecoOleo1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                InputPrecoOleo1KeyTyped(evt);
-            }
-        });
-
-        javax.swing.GroupLayout PainelPrecoOleoLayout = new javax.swing.GroupLayout(PainelPrecoOleo);
-        PainelPrecoOleo.setLayout(PainelPrecoOleoLayout);
-        PainelPrecoOleoLayout.setHorizontalGroup(
-            PainelPrecoOleoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PainelPrecoOleoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PainelPrecoOleoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(LabelOleo500)
-                    .addComponent(LabelOleo1))
-                .addGap(18, 18, 18)
-                .addGroup(PainelPrecoOleoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(InputPrecoOleo500, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(InputPrecoOleo1, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(108, Short.MAX_VALUE))
-        );
-        PainelPrecoOleoLayout.setVerticalGroup(
-            PainelPrecoOleoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PainelPrecoOleoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PainelPrecoOleoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(LabelOleo500)
-                    .addComponent(InputPrecoOleo500, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PainelPrecoOleoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(InputPrecoOleo1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LabelOleo1))
-                .addContainerGap(82, Short.MAX_VALUE))
-        );
-
-        PainelPrecoCombustive.setBorder(javax.swing.BorderFactory.createTitledBorder(null, bundle.getString("Comanda.PainelPrecoCombustive.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Fira Code", 1, 12))); // NOI18N
-
-        LabelOleoDisel.setFont(new java.awt.Font("Fira Code", 1, 12)); // NOI18N
-        LabelOleoDisel.setText(bundle.getString("Comanda.LabelOleoDisel.text")); // NOI18N
-
-        LabelGasComum.setFont(new java.awt.Font("Fira Code", 1, 12)); // NOI18N
-        LabelGasComum.setText(bundle.getString("Comanda.LabelGasComum.text")); // NOI18N
-
-        LabelGasAditivada.setFont(new java.awt.Font("Fira Code", 1, 12)); // NOI18N
-        LabelGasAditivada.setText(bundle.getString("Comanda.LabelGasAditivada.text")); // NOI18N
-
-        LabelAlcool.setFont(new java.awt.Font("Fira Code", 1, 12)); // NOI18N
-        LabelAlcool.setText(bundle.getString("Comanda.LabelAlcool.text")); // NOI18N
-
-        InputPrecoOleoDisel.setText(bundle.getString("Comanda.InputPrecoOleoDisel.text")); // NOI18N
-        InputPrecoOleoDisel.addActionListener(new java.awt.event.ActionListener() {
+        inputPrecoOleoDiesel.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        inputPrecoOleoDiesel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                InputPrecoOleoDiselActionPerformed(evt);
+                inputPrecoOleoDieselActionPerformed(evt);
             }
         });
-        InputPrecoOleoDisel.addKeyListener(new java.awt.event.KeyAdapter() {
+        inputPrecoOleoDiesel.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                InputPrecoOleoDiselKeyTyped(evt);
+                inputPrecoOleoDieselKeyTyped(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                inputPrecoOleoDieselKeyReleased(evt);
             }
         });
 
-        InputPrecoGasComum.setText(bundle.getString("Comanda.InputPrecoGasComum.text")); // NOI18N
-        InputPrecoGasComum.addKeyListener(new java.awt.event.KeyAdapter() {
+        labelPrecoGasComum.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        labelPrecoGasComum.setText("Gas. Comum:");
+
+        inputPrecoGasComum.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        inputPrecoGasComum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputPrecoGasComumActionPerformed(evt);
+            }
+        });
+        inputPrecoGasComum.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                InputPrecoGasComumKeyTyped(evt);
+                inputPrecoGasComumKeyTyped(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                inputPrecoGasComumKeyReleased(evt);
             }
         });
 
-        InputPrecoGasAditivada.setText(bundle.getString("Comanda.InputPrecoGasAditivada.text")); // NOI18N
-        InputPrecoGasAditivada.addKeyListener(new java.awt.event.KeyAdapter() {
+        labelPrecoGasAditivada.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        labelPrecoGasAditivada.setText("Gas. Aditivada:");
+
+        inputPrecoGasAditivada.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        inputPrecoGasAditivada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputPrecoGasAditivadaActionPerformed(evt);
+            }
+        });
+        inputPrecoGasAditivada.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                InputPrecoGasAditivadaKeyTyped(evt);
+                inputPrecoGasAditivadaKeyTyped(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                inputPrecoGasAditivadaKeyReleased(evt);
             }
         });
 
-        InputPrecoAlcool.setText(bundle.getString("Comanda.InputPrecoAlcool.text")); // NOI18N
-        InputPrecoAlcool.addKeyListener(new java.awt.event.KeyAdapter() {
+        labelPrecoAlcool.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        labelPrecoAlcool.setText("Álcool:");
+
+        inputPrecoAlcool.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        inputPrecoAlcool.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputPrecoAlcoolActionPerformed(evt);
+            }
+        });
+        inputPrecoAlcool.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                InputPrecoAlcoolKeyTyped(evt);
+                inputPrecoAlcoolKeyTyped(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                inputPrecoAlcoolKeyReleased(evt);
             }
         });
 
-        javax.swing.GroupLayout PainelPrecoCombustiveLayout = new javax.swing.GroupLayout(PainelPrecoCombustive);
-        PainelPrecoCombustive.setLayout(PainelPrecoCombustiveLayout);
-        PainelPrecoCombustiveLayout.setHorizontalGroup(
-            PainelPrecoCombustiveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PainelPrecoCombustiveLayout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(PainelPrecoCombustiveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(LabelOleoDisel)
-                    .addComponent(LabelGasAditivada)
-                    .addComponent(LabelGasComum)
-                    .addComponent(LabelAlcool))
-                .addGap(18, 18, 18)
-                .addGroup(PainelPrecoCombustiveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(InputPrecoOleoDisel, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(InputPrecoGasComum, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(InputPrecoGasAditivada, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(InputPrecoAlcool, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(49, Short.MAX_VALUE))
-        );
-        PainelPrecoCombustiveLayout.setVerticalGroup(
-            PainelPrecoCombustiveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PainelPrecoCombustiveLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PainelPrecoCombustiveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(PainelPrecoCombustiveLayout.createSequentialGroup()
-                        .addComponent(InputPrecoOleoDisel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelPrecoGasComum)
+                            .addComponent(labelPrecoOleoDiesel))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(inputPrecoGasComum, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                            .addComponent(inputPrecoOleoDiesel)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelPrecoGasAditivada)
+                            .addComponent(labelPrecoAlcool))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(PainelPrecoCombustiveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(InputPrecoGasComum, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(LabelGasComum))
-                        .addGap(28, 28, 28))
-                    .addGroup(PainelPrecoCombustiveLayout.createSequentialGroup()
-                        .addComponent(LabelOleoDisel)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(inputPrecoAlcool)
+                            .addComponent(inputPrecoGasAditivada))))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelPrecoOleoDiesel)
+                    .addComponent(inputPrecoOleoDiesel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelPrecoGasComum)
+                    .addComponent(inputPrecoGasComum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelPrecoGasAditivada)
+                    .addComponent(inputPrecoGasAditivada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelPrecoAlcool)
+                    .addComponent(inputPrecoAlcool, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Painel de Preço do Combustivel"));
+
+        labelPrecoFrasco500.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        labelPrecoFrasco500.setText("Frasco 500 ml:");
+
+        inputPrecoFrasco500.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        inputPrecoFrasco500.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputPrecoFrasco500ActionPerformed(evt);
+            }
+        });
+        inputPrecoFrasco500.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                inputPrecoFrasco500KeyTyped(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                inputPrecoFrasco500KeyReleased(evt);
+            }
+        });
+
+        labelPrecoFraco1.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        labelPrecoFraco1.setText("Frasco 1 Lt:");
+
+        inputPrecoFrasco1.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        inputPrecoFrasco1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputPrecoFrasco1ActionPerformed(evt);
+            }
+        });
+        inputPrecoFrasco1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                inputPrecoFrasco1KeyTyped(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                inputPrecoFrasco1KeyReleased(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelPrecoFraco1)
+                    .addComponent(labelPrecoFrasco500))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(inputPrecoFrasco1, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                    .addComponent(inputPrecoFrasco500))
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelPrecoFrasco500)
+                    .addComponent(inputPrecoFrasco500, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelPrecoFraco1)
+                    .addComponent(inputPrecoFrasco1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Abastecimento"));
+
+        abastecimentoGrupo.add(radioDiesel);
+        radioDiesel.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        radioDiesel.setSelected(true);
+        radioDiesel.setText("Óleo Diesel");
+
+        abastecimentoGrupo.add(radioComum);
+        radioComum.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        radioComum.setText("Gas. Comum");
+        radioComum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioComumActionPerformed(evt);
+            }
+        });
+
+        abastecimentoGrupo.add(radioAditivada);
+        radioAditivada.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        radioAditivada.setText("Gas. Aditivada");
+
+        abastecimentoGrupo.add(radioAlcool);
+        radioAlcool.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        radioAlcool.setText("Álcool");
+        radioAlcool.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioAlcoolActionPerformed(evt);
+            }
+        });
+
+        labelQuantidadeAbastecimento.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        labelQuantidadeAbastecimento.setText("Qualtidade Litros:");
+
+        inputQuantidadeAbastecimento.setEditable(false);
+        inputQuantidadeAbastecimento.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        inputQuantidadeAbastecimento.setText("0");
+        inputQuantidadeAbastecimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputQuantidadeAbastecimentoActionPerformed(evt);
+            }
+        });
+        inputQuantidadeAbastecimento.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                inputQuantidadeAbastecimentoKeyTyped(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                inputQuantidadeAbastecimentoKeyReleased(evt);
+            }
+        });
+
+        inputValorTotalAbastecimento.setEditable(false);
+        inputValorTotalAbastecimento.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        inputValorTotalAbastecimento.setText("0.00");
+        inputValorTotalAbastecimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputValorTotalAbastecimentoActionPerformed(evt);
+            }
+        });
+
+        labelPrecoValorTotalAbastecimento.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        labelPrecoValorTotalAbastecimento.setText("Total Combustível:");
+
+        buttonAcionar.setText("Ligar");
+        buttonAcionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAcionarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(radioDiesel)
+                        .addGap(51, 51, 51)
+                        .addComponent(radioComum)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(PainelPrecoCombustiveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(InputPrecoGasAditivada, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(LabelGasAditivada))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                .addGroup(PainelPrecoCombustiveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(InputPrecoAlcool, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LabelAlcool))
-                .addContainerGap())
+                        .addComponent(radioAditivada)
+                        .addGap(58, 58, 58)
+                        .addComponent(radioAlcool)
+                        .addContainerGap())
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelPrecoValorTotalAbastecimento)
+                            .addComponent(labelQuantidadeAbastecimento))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(inputQuantidadeAbastecimento, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                            .addComponent(inputValorTotalAbastecimento))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(buttonAcionar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(61, 61, 61))))
         );
-
-        PainelPagamento.setBorder(javax.swing.BorderFactory.createTitledBorder(null, bundle.getString("Comanda.PainelPagamento.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Fira Code", 1, 12))); // NOI18N
-
-        BotaoObservacao.setFont(new java.awt.Font("Fira Code", 1, 12)); // NOI18N
-        BotaoObservacao.setText(bundle.getString("Comanda.BotaoObservacao.text")); // NOI18N
-
-        GrupoRadioPagamento.add(RadioAvista);
-        RadioAvista.setFont(new java.awt.Font("Fira Code", 1, 12)); // NOI18N
-        RadioAvista.setSelected(true);
-        RadioAvista.setText(bundle.getString("Comanda.RadioAvista.text")); // NOI18N
-
-        GrupoRadioPagamento.add(RadioPrazo);
-        RadioPrazo.setFont(new java.awt.Font("Fira Code", 1, 12)); // NOI18N
-        RadioPrazo.setText(bundle.getString("Comanda.RadioPrazo.text")); // NOI18N
-        RadioPrazo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RadioPrazoActionPerformed(evt);
-            }
-        });
-
-        LabelTotalVenda.setFont(new java.awt.Font("Fira Code", 1, 12)); // NOI18N
-        LabelTotalVenda.setText(bundle.getString("Comanda.LabelTotalVenda.text")); // NOI18N
-
-        InputTotalVenda.setEditable(false);
-        InputTotalVenda.setText(bundle.getString("Comanda.InputTotalVenda.text")); // NOI18N
-
-        LabelDiasPrazo.setFont(new java.awt.Font("Fira Code", 1, 12)); // NOI18N
-        LabelDiasPrazo.setText(bundle.getString("Comanda.LabelDiasPrazo.text")); // NOI18N
-
-        InputDiasPrazo.setEditable(false);
-        InputDiasPrazo.setText(bundle.getString("Comanda.InputDiasPrazo.text")); // NOI18N
-        InputDiasPrazo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                InputDiasPrazoActionPerformed(evt);
-            }
-        });
-        InputDiasPrazo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                InputDiasPrazoKeyTyped(evt);
-            }
-        });
-
-        javax.swing.GroupLayout PainelPagamentoLayout = new javax.swing.GroupLayout(PainelPagamento);
-        PainelPagamento.setLayout(PainelPagamentoLayout);
-        PainelPagamentoLayout.setHorizontalGroup(
-            PainelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PainelPagamentoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PainelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PainelPagamentoLayout.createSequentialGroup()
-                        .addComponent(RadioAvista)
-                        .addGap(95, 95, 95)
-                        .addComponent(RadioPrazo)
-                        .addGap(56, 56, 56)
-                        .addComponent(LabelDiasPrazo)
-                        .addGap(18, 18, 18)
-                        .addComponent(InputDiasPrazo, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PainelPagamentoLayout.createSequentialGroup()
-                        .addComponent(LabelTotalVenda)
-                        .addGap(18, 18, 18)
-                        .addGroup(PainelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(BotaoObservacao, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
-                            .addComponent(InputTotalVenda))))
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(radioDiesel)
+                    .addComponent(radioComum)
+                    .addComponent(radioAditivada)
+                    .addComponent(radioAlcool))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelQuantidadeAbastecimento)
+                            .addComponent(inputQuantidadeAbastecimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelPrecoValorTotalAbastecimento)
+                            .addComponent(inputValorTotalAbastecimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(buttonAcionar)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        PainelPagamentoLayout.setVerticalGroup(
-            PainelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PainelPagamentoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PainelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(PainelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(RadioAvista)
-                        .addComponent(RadioPrazo))
-                    .addComponent(InputDiasPrazo, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(PainelPagamentoLayout.createSequentialGroup()
-                        .addComponent(LabelDiasPrazo)
-                        .addGap(6, 6, 6)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                .addGroup(PainelPagamentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(InputTotalVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(PainelPagamentoLayout.createSequentialGroup()
-                        .addComponent(LabelTotalVenda)
-                        .addGap(6, 6, 6)))
+
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Óleo Motor"));
+
+        checkBoxFrasco500.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        checkBoxFrasco500.setText("Frasco 500 ml:");
+        checkBoxFrasco500.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxFrasco500ActionPerformed(evt);
+            }
+        });
+
+        checkBoxFrasco1.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        checkBoxFrasco1.setText("Frasco 1 Lt:");
+        checkBoxFrasco1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxFrasco1ActionPerformed(evt);
+            }
+        });
+
+        inputQuantidadeFrasco1.setEditable(false);
+        inputQuantidadeFrasco1.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        inputQuantidadeFrasco1.setText("0");
+        inputQuantidadeFrasco1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                inputQuantidadeFrasco1FocusLost(evt);
+            }
+        });
+        inputQuantidadeFrasco1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputQuantidadeFrasco1ActionPerformed(evt);
+            }
+        });
+        inputQuantidadeFrasco1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                inputQuantidadeFrasco1KeyTyped(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                inputQuantidadeFrasco1KeyReleased(evt);
+            }
+        });
+
+        inputQuantidadeFrasco500.setEditable(false);
+        inputQuantidadeFrasco500.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        inputQuantidadeFrasco500.setText("0");
+        inputQuantidadeFrasco500.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                inputQuantidadeFrasco500FocusLost(evt);
+            }
+        });
+        inputQuantidadeFrasco500.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputQuantidadeFrasco500ActionPerformed(evt);
+            }
+        });
+        inputQuantidadeFrasco500.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                inputQuantidadeFrasco500KeyTyped(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                inputQuantidadeFrasco500KeyReleased(evt);
+            }
+        });
+
+        labelQuantidadeOleo.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        labelQuantidadeOleo.setText("Quantidade");
+
+        labelValorPagarOleo.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        labelValorPagarOleo.setText("Valor a Pagar");
+
+        inputValorPagarFraco500.setEditable(false);
+        inputValorPagarFraco500.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        inputValorPagarFraco500.setText("0.00");
+        inputValorPagarFraco500.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputValorPagarFraco500ActionPerformed(evt);
+            }
+        });
+
+        inputValorPagarFraco1.setEditable(false);
+        inputValorPagarFraco1.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        inputValorPagarFraco1.setText("0.00");
+        inputValorPagarFraco1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputValorPagarFraco1ActionPerformed(evt);
+            }
+        });
+
+        inputValorTotalOleo.setEditable(false);
+        inputValorTotalOleo.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        inputValorTotalOleo.setText("0.00");
+        inputValorTotalOleo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputValorTotalOleoActionPerformed(evt);
+            }
+        });
+
+        labelValorTotalOleo.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        labelValorTotalOleo.setText("Total Óleo");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(checkBoxFrasco500)
+                            .addComponent(checkBoxFrasco1))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(inputQuantidadeFrasco500, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                            .addComponent(inputQuantidadeFrasco1)))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(160, 160, 160)
+                        .addComponent(labelQuantidadeOleo)))
                 .addGap(18, 18, 18)
-                .addComponent(BotaoObservacao)
-                .addGap(29, 29, 29))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(inputValorPagarFraco1, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(labelValorPagarOleo))
+                    .addComponent(inputValorPagarFraco500))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(labelValorTotalOleo))
+                    .addComponent(inputValorTotalOleo, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel5Layout.createSequentialGroup()
+                            .addComponent(labelValorPagarOleo)
+                            .addGap(8, 8, 8)
+                            .addComponent(inputValorPagarFraco500, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(inputValorPagarFraco1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel5Layout.createSequentialGroup()
+                            .addComponent(labelQuantidadeOleo)
+                            .addGap(8, 8, 8)
+                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(checkBoxFrasco500)
+                                .addComponent(inputQuantidadeFrasco500, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(checkBoxFrasco1)
+                                .addComponent(inputQuantidadeFrasco1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(labelValorTotalOleo)
+                        .addGap(8, 8, 8)
+                        .addComponent(inputValorTotalOleo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
-        PainelAbastecimento.setBorder(javax.swing.BorderFactory.createTitledBorder(null, bundle.getString("Comanda.PainelAbastecimento.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Fira Code", 1, 12))); // NOI18N
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Abastecimento"));
 
-        GrupoRadioAbastecimento.add(RadioOleoDisel);
-        RadioOleoDisel.setFont(new java.awt.Font("Fira Code", 1, 12)); // NOI18N
-        RadioOleoDisel.setSelected(true);
-        RadioOleoDisel.setText(bundle.getString("Comanda.RadioOleoDisel.text")); // NOI18N
+        formaGrupo.add(radioAvista);
+        radioAvista.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        radioAvista.setSelected(true);
+        radioAvista.setText("Avista");
 
-        GrupoRadioAbastecimento.add(RadioGasComum);
-        RadioGasComum.setFont(new java.awt.Font("Fira Code", 1, 12)); // NOI18N
-        RadioGasComum.setText(bundle.getString("Comanda.RadioGasComum.text")); // NOI18N
-        RadioGasComum.addActionListener(new java.awt.event.ActionListener() {
+        formaGrupo.add(radioPrazo);
+        radioPrazo.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        radioPrazo.setText("Prazo");
+        radioPrazo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RadioGasComumActionPerformed(evt);
+                radioPrazoActionPerformed(evt);
             }
         });
 
-        GrupoRadioAbastecimento.add(RadioAlcool);
-        RadioAlcool.setFont(new java.awt.Font("Fira Code", 1, 12)); // NOI18N
-        RadioAlcool.setText(bundle.getString("Comanda.RadioAlcool.text")); // NOI18N
-        RadioAlcool.addActionListener(new java.awt.event.ActionListener() {
+        labelTotalApagar.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        labelTotalApagar.setText("Total a Pagar:");
+
+        inputTotalApagar.setEditable(false);
+        inputTotalApagar.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        inputTotalApagar.setText("0.00");
+        inputTotalApagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RadioAlcoolActionPerformed(evt);
+                inputTotalApagarActionPerformed(evt);
             }
         });
 
-        GrupoRadioAbastecimento.add(RadioGasAditivada);
-        RadioGasAditivada.setFont(new java.awt.Font("Fira Code", 1, 12)); // NOI18N
-        RadioGasAditivada.setText(bundle.getString("Comanda.RadioGasAditivada.text")); // NOI18N
-        RadioGasAditivada.addActionListener(new java.awt.event.ActionListener() {
+        labelDias.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        labelDias.setText("Dias:");
+
+        inputDias.setEditable(false);
+        inputDias.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        inputDias.setText("0");
+        inputDias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RadioGasAditivadaActionPerformed(evt);
+                inputDiasActionPerformed(evt);
             }
         });
-
-        LabelTotalCombustivelVenda.setFont(new java.awt.Font("Fira Code", 1, 12)); // NOI18N
-        LabelTotalCombustivelVenda.setText(bundle.getString("Comanda.LabelTotalCombustivelVenda.text")); // NOI18N
-
-        LabelQuantidadeCombustivelVenda.setFont(new java.awt.Font("Fira Code", 1, 12)); // NOI18N
-        LabelQuantidadeCombustivelVenda.setText(bundle.getString("Comanda.LabelQuantidadeCombustivelVenda.text")); // NOI18N
-
-        InputQuantidadeVendaCombustivel.setText(bundle.getString("Comanda.InputQuantidadeVendaCombustivel.text")); // NOI18N
-        InputQuantidadeVendaCombustivel.addKeyListener(new java.awt.event.KeyAdapter() {
+        inputDias.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                InputQuantidadeVendaCombustivelKeyTyped(evt);
+                inputDiasKeyTyped(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                inputDiasKeyReleased(evt);
             }
         });
 
-        InputValorTotalVendaCombustivel.setEditable(false);
-        InputValorTotalVendaCombustivel.setText(bundle.getString("Comanda.InputValorTotalVendaCombustivel.text")); // NOI18N
-        InputValorTotalVendaCombustivel.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                InputValorTotalVendaCombustivelKeyTyped(evt);
+        buttonObservacao.setText("Abrir Observações");
+        buttonObservacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonObservacaoActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout PainelAbastecimentoLayout = new javax.swing.GroupLayout(PainelAbastecimento);
-        PainelAbastecimento.setLayout(PainelAbastecimentoLayout);
-        PainelAbastecimentoLayout.setHorizontalGroup(
-            PainelAbastecimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PainelAbastecimentoLayout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(PainelAbastecimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PainelAbastecimentoLayout.createSequentialGroup()
-                        .addComponent(RadioOleoDisel)
-                        .addGap(95, 95, 95)
-                        .addComponent(RadioGasComum)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
-                        .addComponent(RadioGasAditivada)
-                        .addGap(102, 102, 102)
-                        .addComponent(RadioAlcool)
-                        .addGap(90, 90, 90))
-                    .addGroup(PainelAbastecimentoLayout.createSequentialGroup()
-                        .addGroup(PainelAbastecimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(LabelQuantidadeCombustivelVenda)
-                            .addComponent(LabelTotalCombustivelVenda))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(radioAvista)
+                        .addGap(51, 51, 51)
+                        .addComponent(radioPrazo)
                         .addGap(18, 18, 18)
-                        .addGroup(PainelAbastecimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(InputQuantidadeVendaCombustivel, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(InputValorTotalVendaCombustivel, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
-        PainelAbastecimentoLayout.setVerticalGroup(
-            PainelAbastecimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PainelAbastecimentoLayout.createSequentialGroup()
-                .addGroup(PainelAbastecimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(RadioOleoDisel)
-                    .addComponent(RadioGasComum)
-                    .addComponent(RadioGasAditivada)
-                    .addComponent(RadioAlcool))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PainelAbastecimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(PainelAbastecimentoLayout.createSequentialGroup()
-                        .addComponent(InputQuantidadeVendaCombustivel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(PainelAbastecimentoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(InputValorTotalVendaCombustivel, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(LabelTotalCombustivelVenda)))
-                    .addGroup(PainelAbastecimentoLayout.createSequentialGroup()
-                        .addComponent(LabelQuantidadeCombustivelVenda)
-                        .addGap(34, 34, 34)))
-                .addGap(0, 15, Short.MAX_VALUE))
-        );
-
-        PainelCompraOleo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, bundle.getString("Comanda.PainelCompraOleo.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Fira Code", 1, 12))); // NOI18N
-
-        InputQuantidadeOleo1Venda.setEditable(false);
-        InputQuantidadeOleo1Venda.setText(bundle.getString("Comanda.InputQuantidadeOleo1Venda.text")); // NOI18N
-        InputQuantidadeOleo1Venda.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                InputQuantidadeOleo1VendaKeyTyped(evt);
-            }
-        });
-
-        InputQuantidadeOleo500Venda.setEditable(false);
-        InputQuantidadeOleo500Venda.setText(bundle.getString("Comanda.InputQuantidadeOleo500Venda.text")); // NOI18N
-        InputQuantidadeOleo500Venda.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                InputQuantidadeOleo500VendaActionPerformed(evt);
-            }
-        });
-        InputQuantidadeOleo500Venda.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                InputQuantidadeOleo500VendaKeyTyped(evt);
-            }
-        });
-
-        InputPrecoOleo500Venda.setEditable(false);
-        InputPrecoOleo500Venda.setText(bundle.getString("Comanda.InputPrecoOleo500Venda.text")); // NOI18N
-
-        InputPrecoOleo1Venda.setEditable(false);
-        InputPrecoOleo1Venda.setText(bundle.getString("Comanda.InputPrecoOleo1Venda.text")); // NOI18N
-
-        LabelTotalPrecoVendaOleo.setFont(new java.awt.Font("Fira Code", 1, 12)); // NOI18N
-        LabelTotalPrecoVendaOleo.setText(bundle.getString("Comanda.LabelTotalPrecoVendaOleo.text")); // NOI18N
-
-        InputTotalPrecoOleo.setEditable(false);
-        InputTotalPrecoOleo.setText(bundle.getString("Comanda.InputTotalPrecoOleo.text")); // NOI18N
-
-        CheckBoxOleo500Venda.setFont(new java.awt.Font("Fira Code", 1, 12)); // NOI18N
-        CheckBoxOleo500Venda.setText(bundle.getString("Comanda.CheckBoxOleo500Venda.text")); // NOI18N
-        CheckBoxOleo500Venda.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CheckBoxOleo500VendaActionPerformed(evt);
-            }
-        });
-
-        CheckBoxOleo1Venda.setFont(new java.awt.Font("Fira Code", 1, 12)); // NOI18N
-        CheckBoxOleo1Venda.setText(bundle.getString("Comanda.CheckBoxOleo1Venda.text")); // NOI18N
-        CheckBoxOleo1Venda.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CheckBoxOleo1VendaActionPerformed(evt);
-            }
-        });
-
-        LabelQuantidadeOleosVenda.setFont(new java.awt.Font("Fira Code", 1, 12)); // NOI18N
-        LabelQuantidadeOleosVenda.setText(bundle.getString("Comanda.LabelQuantidadeOleosVenda.text")); // NOI18N
-
-        LabelEspeciePrecoVendaOleo.setFont(new java.awt.Font("Fira Code", 1, 12)); // NOI18N
-        LabelEspeciePrecoVendaOleo.setText(bundle.getString("Comanda.LabelEspeciePrecoVendaOleo.text")); // NOI18N
-
-        javax.swing.GroupLayout PainelCompraOleoLayout = new javax.swing.GroupLayout(PainelCompraOleo);
-        PainelCompraOleo.setLayout(PainelCompraOleoLayout);
-        PainelCompraOleoLayout.setHorizontalGroup(
-            PainelCompraOleoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PainelCompraOleoLayout.createSequentialGroup()
-                .addGap(141, 141, 141)
-                .addComponent(LabelQuantidadeOleosVenda)
-                .addGap(87, 87, 87)
-                .addComponent(LabelEspeciePrecoVendaOleo)
+                        .addComponent(labelDias)
+                        .addGap(23, 23, 23)
+                        .addComponent(inputDias, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(labelTotalApagar)
+                        .addGap(23, 23, 23)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(buttonObservacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(inputTotalApagar, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(PainelCompraOleoLayout.createSequentialGroup()
-                .addGroup(PainelCompraOleoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(CheckBoxOleo500Venda)
-                    .addComponent(CheckBoxOleo1Venda))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PainelCompraOleoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(InputQuantidadeOleo500Venda)
-                    .addComponent(InputQuantidadeOleo1Venda, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(73, 73, 73)
-                .addGroup(PainelCompraOleoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(InputPrecoOleo500Venda)
-                    .addComponent(InputPrecoOleo1Venda, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(PainelCompraOleoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(PainelCompraOleoLayout.createSequentialGroup()
-                    .addGap(559, 559, 559)
-                    .addGroup(PainelCompraOleoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(LabelTotalPrecoVendaOleo)
-                        .addComponent(InputTotalPrecoOleo, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(50, Short.MAX_VALUE)))
         );
-        PainelCompraOleoLayout.setVerticalGroup(
-            PainelCompraOleoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PainelCompraOleoLayout.createSequentialGroup()
-                .addGroup(PainelCompraOleoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(LabelQuantidadeOleosVenda)
-                    .addComponent(LabelEspeciePrecoVendaOleo))
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(radioAvista)
+                    .addComponent(radioPrazo)
+                    .addComponent(labelDias)
+                    .addComponent(inputDias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PainelCompraOleoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PainelCompraOleoLayout.createSequentialGroup()
-                        .addGroup(PainelCompraOleoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(InputQuantidadeOleo500Venda, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(CheckBoxOleo500Venda))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(PainelCompraOleoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(InputQuantidadeOleo1Venda, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(CheckBoxOleo1Venda)))
-                    .addGroup(PainelCompraOleoLayout.createSequentialGroup()
-                        .addComponent(InputPrecoOleo500Venda, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(InputPrecoOleo1Venda, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 19, Short.MAX_VALUE))
-            .addGroup(PainelCompraOleoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(PainelCompraOleoLayout.createSequentialGroup()
-                    .addGap(7, 7, 7)
-                    .addComponent(LabelTotalPrecoVendaOleo)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(InputTotalPrecoOleo, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(44, Short.MAX_VALUE)))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelTotalApagar)
+                    .addComponent(inputTotalApagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(buttonObservacao)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        BotaoCalcular.setFont(new java.awt.Font("Fira Code", 1, 12)); // NOI18N
-        BotaoCalcular.setText(bundle.getString("Comanda.BotaoCalcular.text")); // NOI18N
-        BotaoCalcular.addActionListener(new java.awt.event.ActionListener() {
+        buttonCalcular.setText("Calcular");
+        buttonCalcular.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotaoCalcularActionPerformed(evt);
+                buttonCalcularActionPerformed(evt);
             }
         });
 
-        BotaoNovo.setFont(new java.awt.Font("Fira Code", 1, 12)); // NOI18N
-        BotaoNovo.setText(bundle.getString("Comanda.BotaoNovo.text")); // NOI18N
-        BotaoNovo.addActionListener(new java.awt.event.ActionListener() {
+        buttonNovo.setText("Novo Cálculo");
+        buttonNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotaoNovoActionPerformed(evt);
+                buttonNovoActionPerformed(evt);
             }
         });
 
-        BotaoFexar.setFont(new java.awt.Font("Fira Code", 1, 12)); // NOI18N
-        BotaoFexar.setText(bundle.getString("Comanda.BotaoFexar.text")); // NOI18N
+        buttonFechar.setText("Fechar");
+        buttonFechar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonFecharActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout PainelBotoesLayout = new javax.swing.GroupLayout(PainelBotoes);
-        PainelBotoes.setLayout(PainelBotoesLayout);
-        PainelBotoesLayout.setHorizontalGroup(
-            PainelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PainelBotoesLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(BotaoCalcular, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(133, 133, 133)
-                .addComponent(BotaoNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(24, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(buttonCalcular, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(buttonNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(76, 76, 76)
+                        .addComponent(buttonFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43))))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonCalcular)
+                    .addComponent(buttonNovo)
+                    .addComponent(buttonFechar))
+                .addContainerGap(25, Short.MAX_VALUE))
+        );
+
+        labelEtanolTanque.setText("Diesel");
+
+        progressBarDiesel.setOrientation(1);
+        progressBarDiesel.setValue(50);
+
+        buttonIniciarDiesel.setText("Iniciar");
+        buttonIniciarDiesel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonIniciarDieselActionPerformed(evt);
+            }
+        });
+
+        buttonCompletarDiesel.setText("Completar");
+        buttonCompletarDiesel.setEnabled(false);
+        buttonCompletarDiesel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCompletarDieselActionPerformed(evt);
+            }
+        });
+
+        labelGasComumTanque.setText("Gas.Comum");
+
+        ProgressBarGasComum.setOrientation(1);
+        ProgressBarGasComum.setValue(50);
+        ProgressBarGasComum.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                ProgressBarGasComumKeyPressed(evt);
+            }
+        });
+
+        buttonIniciarGasComum.setText("Iniciar");
+        buttonIniciarGasComum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonIniciarGasComumActionPerformed(evt);
+            }
+        });
+
+        buttonCompletarGasComum.setText("Completar");
+        buttonCompletarGasComum.setEnabled(false);
+        buttonCompletarGasComum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCompletarGasComumActionPerformed(evt);
+            }
+        });
+
+        labelGasAditivadaTanque.setText("Gas.Aditivada");
+
+        progressBarGasAditivada.setOrientation(1);
+        progressBarGasAditivada.setValue(50);
+
+        jButtonIniciarGasAditivada.setText("Iniciar");
+        jButtonIniciarGasAditivada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonIniciarGasAditivadaActionPerformed(evt);
+            }
+        });
+
+        buttonCompletarGasAditivada.setText("Completar");
+        buttonCompletarGasAditivada.setEnabled(false);
+        buttonCompletarGasAditivada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCompletarGasAditivadaActionPerformed(evt);
+            }
+        });
+
+        labelAlcoolTanque.setText("Alcool");
+
+        progressBarAlcool.setOrientation(1);
+        progressBarAlcool.setValue(50);
+
+        buttonIniciarAlcool.setText("Iniciar");
+        buttonIniciarAlcool.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonIniciarAlcoolActionPerformed(evt);
+            }
+        });
+
+        buttonCompletarAlcool.setText("Completar");
+        buttonCompletarAlcool.setEnabled(false);
+        buttonCompletarAlcool.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCompletarAlcoolActionPerformed(evt);
+            }
+        });
+
+        progressBarFrasco1.setMaximum(50);
+        progressBarFrasco1.setOrientation(1);
+        progressBarFrasco1.setValue(25);
+
+        progressBarFrasco500.setMaximum(50);
+        progressBarFrasco500.setOrientation(1);
+        progressBarFrasco500.setValue(25);
+
+        labelEtanolTanque1.setText("Frasco 500 ml");
+
+        labelEtanolTanque2.setText("Frasco 1 Lt");
+
+        buttonCompletarFrasco500.setText("Completar");
+        buttonCompletarFrasco500.setEnabled(false);
+        buttonCompletarFrasco500.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCompletarFrasco500ActionPerformed(evt);
+            }
+        });
+
+        buttonIniciarFrasco500.setText("Iniciar");
+        buttonIniciarFrasco500.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonIniciarFrasco500ActionPerformed(evt);
+            }
+        });
+
+        buttonCompletarFrasco1.setText("Completar");
+        buttonCompletarFrasco1.setEnabled(false);
+        buttonCompletarFrasco1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCompletarFrasco1ActionPerformed(evt);
+            }
+        });
+
+        buttonIniciarFrasco1.setText("Iniciar");
+        buttonIniciarFrasco1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonIniciarFrasco1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addGap(0, 41, Short.MAX_VALUE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(buttonCompletarFrasco1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(buttonIniciarFrasco1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelEtanolTanque2)
+                    .addComponent(progressBarFrasco500, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelEtanolTanque1)
+                    .addComponent(progressBarFrasco1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(buttonCompletarFrasco500, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                        .addComponent(buttonIniciarFrasco500, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(54, 54, 54))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(labelEtanolTanque1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(progressBarFrasco500, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BotaoFexar, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(buttonIniciarFrasco500)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonCompletarFrasco500)
+                .addGap(13, 13, 13)
+                .addComponent(labelEtanolTanque2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(progressBarFrasco1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonIniciarFrasco1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonCompletarFrasco1)
                 .addContainerGap())
-        );
-        PainelBotoesLayout.setVerticalGroup(
-            PainelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PainelBotoesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PainelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BotaoCalcular)
-                    .addComponent(BotaoNovo)
-                    .addComponent(BotaoFexar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -592,220 +950,646 @@ public class Comanda extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(29, 29, 29)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelEtanolTanque)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(PainelPrecoCombustive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(PainelPrecoOleo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(12, 12, 12))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(PainelBotoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(PainelPagamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(PainelCompraOleo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(PainelAbastecimento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(progressBarGasAditivada, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButtonIniciarGasAditivada, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(buttonCompletarGasAditivada)))
+                            .addComponent(labelGasAditivadaTanque)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(progressBarAlcool, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(buttonIniciarAlcool, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(buttonCompletarAlcool)))
+                            .addComponent(labelAlcoolTanque)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(progressBarDiesel, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(buttonIniciarDiesel, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(buttonCompletarDiesel)))
+                            .addComponent(labelGasComumTanque)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(ProgressBarGasComum, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(buttonIniciarGasComum, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(buttonCompletarGasComum))))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(151, 151, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(PainelPrecoCombustive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PainelPrecoOleo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
-                .addComponent(PainelCompraOleo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(PainelPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(PainelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(182, 182, 182)
-                    .addComponent(PainelAbastecimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(403, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(labelEtanolTanque)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(buttonIniciarDiesel)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(buttonCompletarDiesel))
+                                    .addComponent(progressBarDiesel, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelGasComumTanque)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(buttonIniciarGasComum)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(buttonCompletarGasComum))
+                                    .addComponent(ProgressBarGasComum, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelGasAditivadaTanque)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jButtonIniciarGasAditivada)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(buttonCompletarGasAditivada))
+                                    .addComponent(progressBarGasAditivada, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(labelAlcoolTanque)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(buttonIniciarAlcool)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(buttonCompletarAlcool))
+                                    .addComponent(progressBarAlcool, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void RadioGasAditivadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioGasAditivadaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_RadioGasAditivadaActionPerformed
+    private void inputPrecoOleoDieselActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputPrecoOleoDieselActionPerformed
+       
+    }//GEN-LAST:event_inputPrecoOleoDieselActionPerformed
 
-    private void RadioAlcoolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioAlcoolActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_RadioAlcoolActionPerformed
+    private void inputPrecoGasComumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputPrecoGasComumActionPerformed
+       setarValoresCombustivel(1);
+    }//GEN-LAST:event_inputPrecoGasComumActionPerformed
 
-    private void RadioGasComumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioGasComumActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_RadioGasComumActionPerformed
+    private void inputPrecoGasAditivadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputPrecoGasAditivadaActionPerformed
+        setarValoresCombustivel(2);
+    }//GEN-LAST:event_inputPrecoGasAditivadaActionPerformed
 
-    private void RadioPrazoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioPrazoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_RadioPrazoActionPerformed
+    private void inputPrecoAlcoolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputPrecoAlcoolActionPerformed
+        setarValoresCombustivel(3);
+    }//GEN-LAST:event_inputPrecoAlcoolActionPerformed
 
-    private void InputDiasPrazoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InputDiasPrazoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_InputDiasPrazoActionPerformed
+    private void inputPrecoFrasco500ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputPrecoFrasco500ActionPerformed
+        setarValoresOleo(0);
+    }//GEN-LAST:event_inputPrecoFrasco500ActionPerformed
 
-    private void BotaoCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoCalcularActionPerformed
-        posto.getCombustivel(0).setValor(InputPrecoOleoDisel.getText());
-        posto.getCombustivel(1).setValor(InputPrecoGasComum.getText());
-        posto.getCombustivel(2).setValor(InputPrecoGasAditivada.getText());
-        posto.getCombustivel(3).setValor(InputPrecoAlcool.getText());
-        posto.getOleoMotor(0).setValor(InputPrecoOleo500.getText());
-        posto.getOleoMotor(1).setValor(InputPrecoOleo1.getText());
+    private void inputPrecoFrasco1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputPrecoFrasco1ActionPerformed
+        setarValoresOleo(1);
+    }//GEN-LAST:event_inputPrecoFrasco1ActionPerformed
+
+    private void radioComumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioComumActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_radioComumActionPerformed
+
+    private void radioAlcoolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioAlcoolActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_radioAlcoolActionPerformed
+
+    private void inputQuantidadeAbastecimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputQuantidadeAbastecimentoActionPerformed
+       
+    }//GEN-LAST:event_inputQuantidadeAbastecimentoActionPerformed
+
+    private void inputValorTotalAbastecimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputValorTotalAbastecimentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inputValorTotalAbastecimentoActionPerformed
+
+    private void checkBoxFrasco1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxFrasco1ActionPerformed
+        if(checkBoxFrasco1.isSelected())
+            inputQuantidadeFrasco1.setEditable(true);
+        else
+            inputQuantidadeFrasco1.setEditable(false);
+    }//GEN-LAST:event_checkBoxFrasco1ActionPerformed
+
+    private void inputQuantidadeFrasco1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputQuantidadeFrasco1ActionPerformed
         
-        
-    }//GEN-LAST:event_BotaoCalcularActionPerformed
+    }//GEN-LAST:event_inputQuantidadeFrasco1ActionPerformed
 
-    private void InputPrecoOleoDiselActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InputPrecoOleoDiselActionPerformed
+    private void inputQuantidadeFrasco500ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputQuantidadeFrasco500ActionPerformed
+       
+    }//GEN-LAST:event_inputQuantidadeFrasco500ActionPerformed
+
+    private void inputValorPagarFraco500ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputValorPagarFraco500ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_InputPrecoOleoDiselActionPerformed
+    }//GEN-LAST:event_inputValorPagarFraco500ActionPerformed
 
-    private void InputPrecoOleoDiselKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_InputPrecoOleoDiselKeyTyped
-            String caracteres="0987654321";
-            if(!caracteres.contains(evt.getKeyChar()+"")){
-                evt.consume();
-            }
-    }//GEN-LAST:event_InputPrecoOleoDiselKeyTyped
-
-    private void InputPrecoGasComumKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_InputPrecoGasComumKeyTyped
-        String caracteres="0987654321";
-        if(!caracteres.contains(evt.getKeyChar()+"")){
-            evt.consume();
-        }
-    }//GEN-LAST:event_InputPrecoGasComumKeyTyped
-
-    private void InputPrecoGasAditivadaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_InputPrecoGasAditivadaKeyTyped
-        String caracteres="0987654321";
-        if(!caracteres.contains(evt.getKeyChar()+"")){
-            evt.consume();
-        }
-    }//GEN-LAST:event_InputPrecoGasAditivadaKeyTyped
-
-    private void InputPrecoAlcoolKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_InputPrecoAlcoolKeyTyped
-        String caracteres="0987654321";
-        if(!caracteres.contains(evt.getKeyChar()+"")){
-            evt.consume();
-        }
-    }//GEN-LAST:event_InputPrecoAlcoolKeyTyped
-
-    private void InputPrecoOleo500KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_InputPrecoOleo500KeyTyped
-        String caracteres="0987654321";
-        if(!caracteres.contains(evt.getKeyChar()+"")){
-            evt.consume();
-        }
-    }//GEN-LAST:event_InputPrecoOleo500KeyTyped
-
-    private void InputPrecoOleo1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_InputPrecoOleo1KeyTyped
-        String caracteres="0987654321";
-        if(!caracteres.contains(evt.getKeyChar()+"")){
-            evt.consume();
-        }
-    }//GEN-LAST:event_InputPrecoOleo1KeyTyped
-
-    private void InputQuantidadeVendaCombustivelKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_InputQuantidadeVendaCombustivelKeyTyped
-        String caracteres="0987654321";
-        if(!caracteres.contains(evt.getKeyChar()+"")){
-            evt.consume();
-        }
-    }//GEN-LAST:event_InputQuantidadeVendaCombustivelKeyTyped
-
-    private void InputValorTotalVendaCombustivelKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_InputValorTotalVendaCombustivelKeyTyped
-        String caracteres="0987654321";
-        if(!caracteres.contains(evt.getKeyChar()+"")){
-            evt.consume();
-        }
-    }//GEN-LAST:event_InputValorTotalVendaCombustivelKeyTyped
-
-    private void InputQuantidadeOleo500VendaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_InputQuantidadeOleo500VendaKeyTyped
-        String caracteres="0987654321";
-        if(!caracteres.contains(evt.getKeyChar()+"")){
-            evt.consume();
-        }
-    }//GEN-LAST:event_InputQuantidadeOleo500VendaKeyTyped
-
-    private void InputQuantidadeOleo1VendaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_InputQuantidadeOleo1VendaKeyTyped
-        String caracteres="0987654321";
-        if(!caracteres.contains(evt.getKeyChar()+"")){
-            evt.consume();
-        }
-    }//GEN-LAST:event_InputQuantidadeOleo1VendaKeyTyped
-
-    private void InputDiasPrazoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_InputDiasPrazoKeyTyped
-        String caracteres="0987654321";
-        if(!caracteres.contains(evt.getKeyChar()+"")){
-            evt.consume();
-        }
-    }//GEN-LAST:event_InputDiasPrazoKeyTyped
-
-    private void CheckBoxOleo500VendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxOleo500VendaActionPerformed
-        (CheckBoxOleo500Venda ? InputQuantidadeOleo500Venda.setEnable(true) : InputQuantidadeOleo500Venda.setEnable(false));
-    }//GEN-LAST:event_CheckBoxOleo500VendaActionPerformed
-
-    private void InputQuantidadeOleo500VendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InputQuantidadeOleo500VendaActionPerformed
+    private void inputValorPagarFraco1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputValorPagarFraco1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_InputQuantidadeOleo500VendaActionPerformed
+    }//GEN-LAST:event_inputValorPagarFraco1ActionPerformed
 
-    private void CheckBoxOleo1VendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxOleo1VendaActionPerformed
-        (CheckBoxOleo500Venda ? InputQuantidadeOleo1Venda.setEnable(true) : InputQuantidadeOleo1Venda.setEnable(false));
-    }//GEN-LAST:event_CheckBoxOleo1VendaActionPerformed
+    private void inputValorTotalOleoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputValorTotalOleoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inputValorTotalOleoActionPerformed
 
-    private void BotaoNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoNovoActionPerformed
-        InputPrecoOleoDisel.setText(posto.getCombustivel(0).getValor());
-        InputPrecoGasComum.setText(posto.getCombustivel(1).getValor());
-        InputPrecoGasAditivada.setText(posto.getCombustivel(2).getValor());
-        InputPrecoAlcool.setText(posto.getCombustivel(3).getValor());
-        InputPrecoOleo500.setText(posto.getOleoMotor(0).getValor());
-        InputPrecoOleo1.setText(posto.getOleoMotor(1).getValor());
-    }//GEN-LAST:event_BotaoNovoActionPerformed
+    private void radioPrazoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioPrazoActionPerformed
+        if (radioPrazo.isSelected())  
+           inputDias.setEditable(true); 
+        else 
+            inputDias.setEditable(false);
+    }//GEN-LAST:event_radioPrazoActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Comanda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Comanda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Comanda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Comanda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void inputTotalApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputTotalApagarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inputTotalApagarActionPerformed
+
+    private void inputDiasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputDiasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inputDiasActionPerformed
+
+    private void buttonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNovoActionPerformed
+        this.reiniciar();
+    }//GEN-LAST:event_buttonNovoActionPerformed
+    private void aceitarApenasNumeros(java.awt.event.KeyEvent evt){
+        String caracteres = "0987654321";
+        if (!caracteres.contains(evt.getKeyChar() + "")) {
+            evt.consume();
         }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Comanda().setVisible(true);
-            }
-        });
     }
+    private void inputPrecoOleoDieselKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputPrecoOleoDieselKeyTyped
+        aceitarApenasNumeros(evt);
+        
+    }//GEN-LAST:event_inputPrecoOleoDieselKeyTyped
+
+    private void inputPrecoGasComumKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputPrecoGasComumKeyTyped
+       aceitarApenasNumeros(evt);
+    }//GEN-LAST:event_inputPrecoGasComumKeyTyped
+
+    private void inputPrecoGasAditivadaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputPrecoGasAditivadaKeyTyped
+       aceitarApenasNumeros(evt);
+    }//GEN-LAST:event_inputPrecoGasAditivadaKeyTyped
+
+    private void inputPrecoAlcoolKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputPrecoAlcoolKeyTyped
+        aceitarApenasNumeros(evt);
+    }//GEN-LAST:event_inputPrecoAlcoolKeyTyped
+
+    private void inputPrecoFrasco500KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputPrecoFrasco500KeyTyped
+        aceitarApenasNumeros(evt);
+    }//GEN-LAST:event_inputPrecoFrasco500KeyTyped
+
+    private void inputPrecoFrasco1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputPrecoFrasco1KeyTyped
+        aceitarApenasNumeros(evt);
+    }//GEN-LAST:event_inputPrecoFrasco1KeyTyped
+
+    private void inputQuantidadeAbastecimentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputQuantidadeAbastecimentoKeyTyped
+        aceitarApenasNumeros(evt);
+    }//GEN-LAST:event_inputQuantidadeAbastecimentoKeyTyped
+
+    private void inputQuantidadeFrasco500KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputQuantidadeFrasco500KeyTyped
+       aceitarApenasNumeros(evt);
+    }//GEN-LAST:event_inputQuantidadeFrasco500KeyTyped
+
+    private void inputQuantidadeFrasco1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputQuantidadeFrasco1KeyTyped
+        aceitarApenasNumeros(evt);
+    }//GEN-LAST:event_inputQuantidadeFrasco1KeyTyped
+
+    private void inputDiasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputDiasKeyTyped
+        aceitarApenasNumeros(evt);
+    }//GEN-LAST:event_inputDiasKeyTyped
+
+    private void setarValoresCombustivel(int indice){
+        posto.getCombustivel(indice).setValor(Double.parseDouble(labelPrecoOleoDiesel.getText()));
+
+    }
+    private void setarValoresOleo(int indice){
+        posto.getOleoMotor(indice).setValor(Double.parseDouble(inputPrecoFrasco1.getText()));
+    }
+    private int qualCombustivel(){
+        int combus;
+        if(radioDiesel.isSelected())
+            combus = 0;
+        else if(radioComum.isSelected())
+            combus = 1;
+        else if(radioAditivada.isSelected())
+            combus = 2;
+        else
+            combus = 3;
+        return combus;  
+    }
+    
+    private void vendaOleo(int indice, int quantidade) {
+        try {
+            posto.getOleoMotor(indice).retirar(quantidade);
+        } catch (ExceptionReservatorio er) {
+            JOptionPane.showMessageDialog(this, er.getMessage());
+        }
+    }
+    
+    private double somatoria(){
+        valorOleo = valor1 + valor500;
+        quantidadeDias = Integer.parseInt(inputDias.getText());
+        double total;
+        if(radioAvista.isSelected())
+            return valorOleo + valorCombustivel - ((valorOleo + valorCombustivel)*0.1);
+        else{
+            if(quantidadeDias > 30)
+                return valorOleo + valorCombustivel + ((valorOleo + valorCombustivel)*0.1);
+            else
+                return valorOleo + valorCombustivel;
+        }
+    }
+    private void printValorTotal(){
+        inputTotalApagar.setText(Double.toString(somatoria()));
+    }
+    private void buttonCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCalcularActionPerformed
+        String dia;
+        if(quantidadeDias == 0)
+            dia = "avista com 10% de desconto: - R$ " + ((valorOleo + valorCombustivel)*0.1);
+        else if(quantidadeDias < 30)
+            dia = "aprazo: ";
+        else
+            dia = "aprazo com juros de 10%: R$ "+((valorOleo + valorCombustivel)*0.1);
+            
+        String str = posto.getCombustivel(combustivel).getNome() + ": " + quantidadeCombustivel + "Lt = R$ "+ valorCombustivel +
+               "\nFrasco 500 ml óleo motor: " + inputQuantidadeFrasco500.getText() +"un = R$ " + valor500 +
+                "\nFrasco 1 Lt óleo motor: " + inputQuantidadeFrasco1.getText() +"un = R$ " + valor1 +
+                 "\n\nPagamemto "+ dia+
+                   "\nTotal a pagar : " + valorTotal;
+                
+        new Nota(this, str, true).setVisible(true);
+      
+    }//GEN-LAST:event_buttonCalcularActionPerformed
+
+    private void checkBoxFrasco500ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxFrasco500ActionPerformed
+        if(checkBoxFrasco500.isSelected())
+            inputQuantidadeFrasco500.setEditable(true);
+        else
+            inputQuantidadeFrasco500.setEditable(false);
+    }//GEN-LAST:event_checkBoxFrasco500ActionPerformed
+
+    private void inputQuantidadeAbastecimentoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputQuantidadeAbastecimentoKeyReleased
+        
+    }//GEN-LAST:event_inputQuantidadeAbastecimentoKeyReleased
+
+    private void inputPrecoOleoDieselKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputPrecoOleoDieselKeyReleased
+       setarValoresCombustivel(0);
+    }//GEN-LAST:event_inputPrecoOleoDieselKeyReleased
+
+    private void inputPrecoGasComumKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputPrecoGasComumKeyReleased
+        setarValoresCombustivel(1);
+    }//GEN-LAST:event_inputPrecoGasComumKeyReleased
+
+    private void inputPrecoGasAditivadaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputPrecoGasAditivadaKeyReleased
+       setarValoresCombustivel(2);
+    }//GEN-LAST:event_inputPrecoGasAditivadaKeyReleased
+
+    private void inputPrecoAlcoolKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputPrecoAlcoolKeyReleased
+        setarValoresCombustivel(3);
+    }//GEN-LAST:event_inputPrecoAlcoolKeyReleased
+
+    private void inputPrecoFrasco500KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputPrecoFrasco500KeyReleased
+       setarValoresOleo(0);
+    }//GEN-LAST:event_inputPrecoFrasco500KeyReleased
+
+    private void inputPrecoFrasco1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputPrecoFrasco1KeyReleased
+       setarValoresOleo(1);
+    }//GEN-LAST:event_inputPrecoFrasco1KeyReleased
+
+    private void inputQuantidadeFrasco500KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputQuantidadeFrasco500KeyReleased
+        inputValorPagarFraco500.setText(Double.toString(valor500));
+        inputValorTotalOleo.setText(Double.toString(valorOleo));
+        printValorTotal();
+    }//GEN-LAST:event_inputQuantidadeFrasco500KeyReleased
+
+    private void inputQuantidadeFrasco1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputQuantidadeFrasco1KeyReleased
+        inputValorPagarFraco1.setText(Double.toString(valor1));
+        inputValorTotalOleo.setText(Double.toString(valorOleo));
+        printValorTotal();    
+    }//GEN-LAST:event_inputQuantidadeFrasco1KeyReleased
+
+    private void inputDiasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputDiasKeyReleased
+        printValorTotal();
+    }//GEN-LAST:event_inputDiasKeyReleased
+
+    private void buttonObservacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonObservacaoActionPerformed
+        String str = "Pagamentos avista recebem 10% de desconto\nPagamentos aprazo para mais de 30 dias tem 10% de juros";
+        new Nota(this, str, true).setVisible(true);
+    }//GEN-LAST:event_buttonObservacaoActionPerformed
+
+    private void buttonFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonFecharActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_buttonFecharActionPerformed
+    public void iniciar(javax.swing.JButton iniciar, javax.swing.JButton completar, javax.swing.JProgressBar bar, int indice){
+        iniciar.setEnabled(false);
+        completar.setEnabled(true);
+        bar.setMaximum(posto.getCombustivel(indice).getQuantidadeMax());
+        bar.setValue(0);
+    }
+    private void buttonIniciarDieselActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIniciarDieselActionPerformed
+        iniciar(buttonIniciarDiesel, buttonCompletarDiesel,progressBarDiesel,0);
+        
+    }//GEN-LAST:event_buttonIniciarDieselActionPerformed
+    private void completar(javax.swing.JProgressBar bar, int indice){
+        bar.setValue(posto.getCombustivel(indice).getQuantidadeMax());
+        posto.getCombustivel(indice).setQuantidadeAtual(posto.getCombustivel(indice).getQuantidadeMax());
+    }
+    private void buttonCompletarDieselActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCompletarDieselActionPerformed
+        completar(progressBarDiesel,0);
+    }//GEN-LAST:event_buttonCompletarDieselActionPerformed
+
+    private void buttonAcionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAcionarActionPerformed
+        if(radioDiesel.isSelected()){
+            if (buttonAcionar.isSelected()) {
+                inputQuantidadeAbastecimento.setText("0");
+                new Thread(threadDiesel).start();
+            } else {
+                Thread.interrupted();
+        }}else if(radioComum.isSelected()){
+            if (buttonAcionar.isSelected()) {
+                inputQuantidadeAbastecimento.setText("0");
+                new Thread(threadGasComum).start();
+            } else {
+                Thread.interrupted();
+        }}else if(radioAditivada.isSelected()){
+            if (buttonAcionar.isSelected()) {
+                inputQuantidadeAbastecimento.setText("0");
+                new Thread(threadGasAditivada).start();
+            } else {
+                Thread.interrupted();
+        }}else{
+            if (buttonAcionar.isSelected()) {
+                inputQuantidadeAbastecimento.setText("0");
+                new Thread(threadAlcool).start();
+            } else {
+                Thread.interrupted();
+            }};
+    }//GEN-LAST:event_buttonAcionarActionPerformed
+
+    private void buttonIniciarGasComumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIniciarGasComumActionPerformed
+        iniciar(buttonIniciarGasComum, buttonCompletarGasComum,ProgressBarGasComum,1);
+    }//GEN-LAST:event_buttonIniciarGasComumActionPerformed
+
+    private void buttonCompletarGasComumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCompletarGasComumActionPerformed
+        completar(ProgressBarGasComum,1);
+    }//GEN-LAST:event_buttonCompletarGasComumActionPerformed
+
+    private void jButtonIniciarGasAditivadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIniciarGasAditivadaActionPerformed
+        iniciar(jButtonIniciarGasAditivada, buttonCompletarGasAditivada,progressBarGasAditivada,2);
+    }//GEN-LAST:event_jButtonIniciarGasAditivadaActionPerformed
+
+    private void buttonCompletarGasAditivadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCompletarGasAditivadaActionPerformed
+       completar(progressBarGasAditivada,2);
+    }//GEN-LAST:event_buttonCompletarGasAditivadaActionPerformed
+
+    private void buttonIniciarAlcoolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIniciarAlcoolActionPerformed
+        iniciar(buttonIniciarAlcool, buttonCompletarAlcool,progressBarAlcool,3);    }//GEN-LAST:event_buttonIniciarAlcoolActionPerformed
+
+    private void buttonCompletarAlcoolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCompletarAlcoolActionPerformed
+        completar(progressBarAlcool,3);
+    }//GEN-LAST:event_buttonCompletarAlcoolActionPerformed
+
+    private void ProgressBarGasComumKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ProgressBarGasComumKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ProgressBarGasComumKeyPressed
+    public void iniciarFrasco(javax.swing.JButton iniciar, javax.swing.JButton completar, javax.swing.JProgressBar bar, int indice){
+        iniciar.setEnabled(false);
+        completar.setEnabled(true);
+        bar.setMaximum(posto.getOleoMotor(indice).getQuantidadeMax());
+        bar.setValue(0);
+    }
+    private void buttonIniciarFrasco500ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIniciarFrasco500ActionPerformed
+        iniciarFrasco(buttonIniciarFrasco500,buttonCompletarFrasco500,progressBarFrasco500,0);
+    }//GEN-LAST:event_buttonIniciarFrasco500ActionPerformed
+
+    private void buttonCompletarFrasco500ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCompletarFrasco500ActionPerformed
+        completarFrasco(progressBarFrasco500,0);
+    }//GEN-LAST:event_buttonCompletarFrasco500ActionPerformed
+
+    private void buttonCompletarFrasco1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCompletarFrasco1ActionPerformed
+         completarFrasco(progressBarFrasco1,1);
+    }//GEN-LAST:event_buttonCompletarFrasco1ActionPerformed
+
+    private void buttonIniciarFrasco1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIniciarFrasco1ActionPerformed
+        iniciarFrasco(buttonIniciarFrasco1,buttonCompletarFrasco1,progressBarFrasco1,1);
+    }//GEN-LAST:event_buttonIniciarFrasco1ActionPerformed
+
+    private void inputQuantidadeFrasco500FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_inputQuantidadeFrasco500FocusLost
+        vendaOleo(0,Integer.parseInt(inputQuantidadeFrasco500.getText()));
+    }//GEN-LAST:event_inputQuantidadeFrasco500FocusLost
+
+    private void inputQuantidadeFrasco1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_inputQuantidadeFrasco1FocusLost
+         vendaOleo(1,Integer.parseInt(inputQuantidadeFrasco1.getText()));
+    }//GEN-LAST:event_inputQuantidadeFrasco1FocusLost
+    
+    private void completarFrasco(javax.swing.JProgressBar bar, int indice){
+        bar.setValue(posto.getOleoMotor(indice).getQuantidadeMax());
+        posto.getOleoMotor(indice).setQuantidadeAtual(posto.getOleoMotor(indice).getQuantidadeMax());
+    }
+    
+    private Runnable threadDiesel = new Runnable() {
+        public void run() {
+            try {
+                int i = 0;
+                while (buttonAcionar.isSelected()) {
+                    try {
+                        Thread.sleep(500);
+                        
+                        try {
+                            posto.getCombustivel(0).retirar(1);
+                            i++;
+                            progressBarDiesel.setValue(posto.getCombustivel(0).getQuantidadeAtual());
+                            inputQuantidadeAbastecimento.setText(Integer.toString(i));
+                        } catch (ExceptionReservatorio er) {
+                            JOptionPane.showMessageDialog(null, er.getMessage());
+                            //Thread.interrupted();
+                            buttonAcionar.setSelected(false);
+                            buttonAcionar.setEnabled(false);
+                        }
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(NegacaoDiesel.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                //Thread.interrupted();
+             }catch (Exception e){}
+
+        }};
+     private Runnable threadGasComum = new Runnable() {
+        public void run() {
+            try {
+                int i = 0;
+                while (buttonAcionar.isSelected()) {
+                    try {
+                        Thread.sleep(500);
+                        
+                        try {
+                            posto.getCombustivel(1).retirar(1);
+                            i++;
+                           ProgressBarGasComum.setValue(posto.getCombustivel(1).getQuantidadeAtual());
+                            inputQuantidadeAbastecimento.setText(Integer.toString(i));
+                        } catch (ExceptionReservatorio er) {
+                            JOptionPane.showMessageDialog(null, er.getMessage());
+                            //Thread.interrupted();
+                            buttonAcionar.setSelected(false);
+                            buttonAcionar.setEnabled(false);
+                        }
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(NegacaoDiesel.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                //Thread.interrupted();
+             }catch (Exception e){}
+
+        }};
+        
+    
+        private Runnable threadGasAditivada = new Runnable() {
+        public void run() {
+            try {
+                int i = 0;
+                while (buttonAcionar.isSelected()) {
+                    try {
+                        Thread.sleep(500);
+                        
+                        try {
+                            posto.getCombustivel(2).retirar(1);
+                            i++;
+                           progressBarGasAditivada.setValue(posto.getCombustivel(2).getQuantidadeAtual());
+                            inputQuantidadeAbastecimento.setText(Integer.toString(i));
+                        } catch (ExceptionReservatorio er) {
+                            JOptionPane.showMessageDialog(null, er.getMessage());
+                            //Thread.interrupted();
+                            buttonAcionar.setSelected(false);
+                            buttonAcionar.setEnabled(false);
+                        }
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(NegacaoDiesel.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                //Thread.interrupted();
+             }catch (Exception e){}
+
+        }};
+        private Runnable threadAlcool = new Runnable() {
+        public void run() {
+            try {
+                int i = 0;
+                while (buttonAcionar.isSelected()) {
+                    try {
+                        Thread.sleep(500);
+                        
+                        try {
+                            posto.getCombustivel(3).retirar(1);
+                            i++;
+                            progressBarAlcool.setValue(posto.getCombustivel(3).getQuantidadeAtual());
+                            inputQuantidadeAbastecimento.setText(Integer.toString(i));
+                        } catch (ExceptionReservatorio er) {
+                            JOptionPane.showMessageDialog(null, er.getMessage());
+                            //Thread.interrupted();
+                            buttonAcionar.setSelected(false);
+                            buttonAcionar.setEnabled(false);
+                        }
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(NegacaoDiesel.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                //Thread.interrupted();
+             }catch (Exception e){}
+
+        }
+        
+        
+    };
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JProgressBar ProgressBarGasComum;
+    private javax.swing.ButtonGroup abastecimentoGrupo;
+    private javax.swing.JToggleButton buttonAcionar;
+    private javax.swing.JButton buttonCalcular;
+    private javax.swing.JButton buttonCompletarAlcool;
+    private javax.swing.JButton buttonCompletarDiesel;
+    private javax.swing.JButton buttonCompletarFrasco1;
+    private javax.swing.JButton buttonCompletarFrasco500;
+    private javax.swing.JButton buttonCompletarGasAditivada;
+    private javax.swing.JButton buttonCompletarGasComum;
+    private javax.swing.JButton buttonFechar;
+    private javax.swing.JButton buttonIniciarAlcool;
+    private javax.swing.JButton buttonIniciarDiesel;
+    private javax.swing.JButton buttonIniciarFrasco1;
+    private javax.swing.JButton buttonIniciarFrasco500;
+    private javax.swing.JButton buttonIniciarGasComum;
+    private javax.swing.JButton buttonNovo;
+    private javax.swing.JButton buttonObservacao;
+    private javax.swing.JCheckBox checkBoxFrasco1;
+    private javax.swing.JCheckBox checkBoxFrasco500;
+    private javax.swing.ButtonGroup formaGrupo;
+    private javax.swing.JTextField inputDias;
+    private javax.swing.JTextField inputPrecoAlcool;
+    private javax.swing.JTextField inputPrecoFrasco1;
+    private javax.swing.JTextField inputPrecoFrasco500;
+    private javax.swing.JTextField inputPrecoGasAditivada;
+    private javax.swing.JTextField inputPrecoGasComum;
+    private javax.swing.JTextField inputPrecoOleoDiesel;
+    private javax.swing.JTextField inputQuantidadeAbastecimento;
+    private javax.swing.JTextField inputQuantidadeFrasco1;
+    private javax.swing.JTextField inputQuantidadeFrasco500;
+    private javax.swing.JTextField inputTotalApagar;
+    private javax.swing.JTextField inputValorPagarFraco1;
+    private javax.swing.JTextField inputValorPagarFraco500;
+    private javax.swing.JTextField inputValorTotalAbastecimento;
+    private javax.swing.JTextField inputValorTotalOleo;
+    private javax.swing.JButton jButtonIniciarGasAditivada;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JLabel labelAlcoolTanque;
+    private javax.swing.JLabel labelDias;
+    private javax.swing.JLabel labelEtanolTanque;
+    private javax.swing.JLabel labelEtanolTanque1;
+    private javax.swing.JLabel labelEtanolTanque2;
+    private javax.swing.JLabel labelGasAditivadaTanque;
+    private javax.swing.JLabel labelGasComumTanque;
+    private javax.swing.JLabel labelPrecoAlcool;
+    private javax.swing.JLabel labelPrecoFraco1;
+    private javax.swing.JLabel labelPrecoFrasco500;
+    private javax.swing.JLabel labelPrecoGasAditivada;
+    private javax.swing.JLabel labelPrecoGasComum;
+    private javax.swing.JLabel labelPrecoOleoDiesel;
+    private javax.swing.JLabel labelPrecoValorTotalAbastecimento;
+    private javax.swing.JLabel labelQuantidadeAbastecimento;
+    private javax.swing.JLabel labelQuantidadeOleo;
+    private javax.swing.JLabel labelTotalApagar;
+    private javax.swing.JLabel labelValorPagarOleo;
+    private javax.swing.JLabel labelValorTotalOleo;
+    private javax.swing.JProgressBar progressBarAlcool;
+    private javax.swing.JProgressBar progressBarDiesel;
+    private javax.swing.JProgressBar progressBarFrasco1;
+    private javax.swing.JProgressBar progressBarFrasco500;
+    private javax.swing.JProgressBar progressBarGasAditivada;
+    private javax.swing.JRadioButton radioAditivada;
+    private javax.swing.JRadioButton radioAlcool;
+    private javax.swing.JRadioButton radioAvista;
+    private javax.swing.JRadioButton radioComum;
+    private javax.swing.JRadioButton radioDiesel;
+    private javax.swing.JRadioButton radioPrazo;
     // End of variables declaration//GEN-END:variables
 }

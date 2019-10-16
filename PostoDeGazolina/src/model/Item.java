@@ -5,27 +5,46 @@
  */
 package model;
 
+import Controls.ExceptionReservatorio;
+
 /**
  *
- * @author tadeu
+ * @author Tadeu
  */
 public class Item {
-    private int quantidade;
+    private int quantidadeAtual;
     private double valor;
     private String nome;
+    private int quantidadeMax;
+    private int quantidadeMin;
 
+    
+    
+    
+    /**
+     * 
+     * @param tipoCombustivel - nome do combustivel do reservatório
+     * @param qtdMinima - quantidade mínima desejável no reservatório (abaixo deste limite pode ser emitido um alerta)
+     * @param qtdMaxima - quantidade máxima - limite máximo de combustível no reservatório
+     */
+    public Item(String tipoCombustivel, int qtdMaxima, int qtdMinima) {
+        this.nome = tipoCombustivel;
+        this.quantidadeAtual = 0;
+        this.quantidadeMax = qtdMaxima;
+        this.quantidadeMin = qtdMinima;
+    }
     /**
      * @return the quantidade
      */
-    public int getQuantidade() {
-        return quantidade;
+    public int getQuantidadeAtual() {
+        return quantidadeAtual;
     }
 
     /**
      * @param quantidade the quantidade to set
      */
-    private void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
+    public void setQuantidadeAtual(int quantidade) {
+        this.quantidadeAtual = quantidade;
     }
 
     /**
@@ -55,24 +74,46 @@ public class Item {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
     /**
-     * @param quantidade valor que será retirado da this.quandidade
+     * @return the quantidadeMax
      */
-    public boolean esvaziar(int quantidade){
-        if(quantidade > this.quantidade){
-            return false;
-        }else{
-            quantidade = this.quantidade - quantidade;
-            this.setQuantidade(quantidade);
-            return true;
-        }
+    public int getQuantidadeMax() {
+        return quantidadeMax;
     }
-    /*
-     * @param quantidade valor que será acrecido da this.quandidade
+
+    /**
+     * @param quantidadeMax the quantidadeMax to set
      */
-    public void abastecer(int quantidade){
-        quantidade+= this.quantidade;
-        this.setQuantidade(quantidade);
+    public void setQuantidadeMax(int quantidadeMax) {
+        this.quantidadeMax = quantidadeMax;
+    }
+
+    /**
+     * @return the quantidadeMim
+     */
+    public int getQuantidadeMin() {
+        return quantidadeMin;
+    }
+
+    /**
+     * @param quantidadeMim the quantidadeMim to set
+     */
+    public void setQuantidadeMin(int quantidadeMin) {
+        this.quantidadeMin = quantidadeMin;
     }
     
+    public void retirar(int qtd) throws ExceptionReservatorio{
+        if (qtd <= this.quantidadeAtual) {
+            this.quantidadeAtual -= qtd;
+        } else {
+            throw new ExceptionReservatorio("Reservatório vazio!!");
+        }
+    }
+    
+    public void repor(int qtd) {
+        this.quantidadeAtual += qtd;
+    }
 }
+    
+
